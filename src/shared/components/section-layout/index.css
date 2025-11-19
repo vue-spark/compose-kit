@@ -1,0 +1,43 @@
+.v-section-layout,
+.v-section-layout :is(.v-section-main, .v-section-item) {
+  box-sizing: border-box;
+  position: relative;
+}
+
+.v-section-layout {
+  --gap: 12px;
+
+  display: flex;
+  gap: var(--gap);
+  height: 100%;
+}
+
+/* Vertical mode (default) */
+.v-section-layout--vertical {
+  flex-direction: column;
+}
+
+/* Horizontal mode */
+.v-section-layout--horizontal {
+  flex-direction: row;
+}
+
+/* SectionItem - 固定尺寸的次要分区 */
+.v-section-layout > .v-section-item {
+  flex: none;
+}
+
+/* SectionMain 和嵌套的 SectionLayout - 自动填充的主要分区 */
+.v-section-layout--vertical > :is(.v-section-layout, .v-section-main) {
+  flex: 1;
+  min-height: 0;
+  height: auto;
+  overflow-y: auto;
+}
+
+.v-section-layout--horizontal > :is(.v-section-layout, .v-section-main) {
+  flex: 1;
+  min-width: 0;
+  width: auto;
+  overflow-x: auto;
+}

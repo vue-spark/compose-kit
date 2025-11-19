@@ -1,0 +1,16 @@
+{
+  "extends": ["@vue/tsconfig/tsconfig.dom.json"],
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.cache/tsconfig.play.tsbuildinfo",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "types": [
+      "vite/client",
+      "element-plus/global",
+      "unplugin-vue-router/client"
+    ]
+  },
+  "include": ["playground/**/*", "playground/**/*.vue"]
+}

@@ -1,0 +1,56 @@
+.v-toolbar,
+.v-toolbar [class^='v-toolbar__'] {
+  box-sizing: border-box;
+}
+
+.v-toolbar {
+  --gap: 12px;
+  --title-font-size: calc(1em + 2px);
+  --title-font-weight: 600;
+  --divider-color: #a0a0a0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--gap);
+}
+
+.v-toolbar > .v-toolbar__left {
+  display: flex;
+  align-items: center;
+}
+
+.v-toolbar > .v-toolbar__left > .v-toolbar__title {
+  position: relative;
+  font-size: var(--title-font-size);
+  font-weight: var(--title-font-weight);
+  line-height: 1;
+}
+
+.v-toolbar > .v-toolbar__left > .v-toolbar__divider {
+  display: inline-block;
+  width: 1px;
+  height: 1em;
+  border-left: 1px var(--divider-color) solid;
+  margin: 0 0.75em;
+}
+
+.v-toolbar
+  > .v-toolbar__left:has(> .v-toolbar__title:empty, > .v-toolbar__title ~ .v-toolbar__content:empty)
+  > .v-toolbar__divider {
+  display: none;
+}
+
+.v-toolbar > .v-toolbar__left > .v-toolbar__content,
+.v-toolbar > .v-toolbar__extra {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+}
+
+.v-toolbar > .v-toolbar__left > .v-toolbar__content > *,
+.v-toolbar > .v-toolbar__extra > * {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
