@@ -30,13 +30,6 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
-    '/element-plus/use-pagination': RouteRecordInfo<
-      '/element-plus/use-pagination',
-      '/element-plus/use-pagination',
-      Record<never, never>,
-      Record<never, never>,
-      | never
-    >,
     '/shared/section-layout': RouteRecordInfo<
       '/shared/section-layout',
       '/shared/section-layout',
@@ -47,13 +40,6 @@ declare module 'vue-router/auto-routes' {
     '/shared/toolbar': RouteRecordInfo<
       '/shared/toolbar',
       '/shared/toolbar',
-      Record<never, never>,
-      Record<never, never>,
-      | never
-    >,
-    '/shared/use-pagination': RouteRecordInfo<
-      '/shared/use-pagination',
-      '/shared/use-pagination',
       Record<never, never>,
       Record<never, never>,
       | never
@@ -84,12 +70,6 @@ declare module 'vue-router/auto-routes' {
       views:
         | never
     }
-    'playground/src/pages/element-plus/use-pagination.vue': {
-      routes:
-        | '/element-plus/use-pagination'
-      views:
-        | never
-    }
     'playground/src/pages/shared/section-layout.vue': {
       routes:
         | '/shared/section-layout'
@@ -99,12 +79,6 @@ declare module 'vue-router/auto-routes' {
     'playground/src/pages/shared/toolbar.vue': {
       routes:
         | '/shared/toolbar'
-      views:
-        | never
-    }
-    'playground/src/pages/shared/use-pagination.vue': {
-      routes:
-        | '/shared/use-pagination'
       views:
         | never
     }

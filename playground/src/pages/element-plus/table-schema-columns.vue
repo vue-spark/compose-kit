@@ -1,25 +1,29 @@
 <script setup lang="ts">
 import type { ElTableColumnSchema } from '@/element-plus'
-import { ref } from 'vue'
-import { ElTableSchemaColumns, ElUsePagination } from '@/element-plus'
-import { SectionLayout, SectionMain, usePagination } from '@/index'
-import { sleep } from '../../utils'
+import { ElTableColumn, ElTag } from 'element-plus'
+import { h, ref } from 'vue'
+import { ElTableSchemaColumns } from '@/element-plus'
+import { SectionLayout, SectionMain } from '@/index'
 
-interface BasicDataItem {
+interface UserRow {
   id: number
   name: string
   email: string
   age: number
   status: 'active' | 'inactive' | 'pending'
+  department: string
+  createdAt: string
 }
 
-const basicData = ref<BasicDataItem[]>([
+const users = ref<UserRow[]>([
   {
     id: 1,
     name: '张三',
     email: 'zhangsan@example.com',
     age: 28,
     status: 'active',
+    department: '技术部',
+    createdAt: '2024-03-01',
   },
   {
     id: 2,
@@ -27,6 +31,8 @@ const basicData = ref<BasicDataItem[]>([
     email: 'lisi@example.com',
     age: 32,
     status: 'inactive',
+    department: '产品部',
+    createdAt: '2024-02-18',
   },
   {
     id: 3,
@@ -34,20 +40,41 @@ const basicData = ref<BasicDataItem[]>([
     email: 'wangwu@example.com',
     age: 25,
     status: 'pending',
+    department: '运营部',
+    createdAt: '2024-04-10',
+  },
+  {
+    id: 4,
+    name: '赵六',
+    email: 'zhaoliu@example.com',
+    age: 30,
+    status: 'active',
+    department: '技术部',
+    createdAt: '2024-01-05',
+  },
+  {
+    id: 5,
+    name: '孙七',
+    email: 'sunqi@example.com',
+    age: 27,
+    status: 'active',
+    department: '市场部',
+    createdAt: '2024-03-20',
   },
 ])
 
-const basicColumns: ElTableColumnSchema<BasicDataItem>[] = [
+// 1. 基础用法：用对象数组描述列
+const basicColumns: ElTableColumnSchema<UserRow>[] = [
   {
-    prop: 'id',
-    label: 'ID',
-    width: 80,
+    type: 'index',
+    label: '#',
+    width: 60,
     align: 'center',
   },
   {
     prop: 'name',
     label: '姓名',
-    width: 120,
+    minWidth: 120,
   },
   {
     prop: 'email',
@@ -57,173 +84,236 @@ const basicColumns: ElTableColumnSchema<BasicDataItem>[] = [
   {
     prop: 'age',
     label: '年龄',
-    width: 100,
-    align: 'center',
-  },
-  {
-    prop: 'status',
-    label: '状态',
-    width: 100,
-    align: 'center',
-  },
-]
-
-interface PaginationDataItem {
-  id: number
-  username: string
-  email: string
-  role: string
-  department: string
-  joinDate: string
-  status: 'active' | 'inactive' | 'pending'
-}
-
-const paginationData = ref<PaginationDataItem[]>([])
-const paginationLoading = ref(false)
-const totalItems = ref(156)
-
-const pagination = usePagination({
-  total: () => totalItems.value,
-  pageSize: 10,
-  onChange: async ({ page, pageSize }) => {
-    await loadPaginationData(page, pageSize)
-  },
-})
-
-async function loadPaginationData(page: number, pageSize: number) {
-  paginationLoading.value = true
-  try {
-    await sleep(500)
-    const start = (page - 1) * pageSize
-    const roles = ['管理员', '编辑', '用户'] as const
-    const departments = ['技术部', '产品部', '运营部', '市场部'] as const
-    const statuses = ['active', 'inactive', 'pending'] as const
-
-    paginationData.value = Array.from(
-      { length: Math.min(pageSize, totalItems.value - start) },
-      (_, i) => {
-        const roleIndex = Math.floor(Math.random() * 3) as 0 | 1 | 2
-        const deptIndex = Math.floor(Math.random() * 4) as 0 | 1 | 2 | 3
-        const statusIndex = Math.floor(Math.random() * 3) as 0 | 1 | 2
-        return {
-          id: start + i + 1,
-          username: `user${start + i + 1}`,
-          email: `user${start + i + 1}@example.com`,
-          role: roles[roleIndex],
-          department: departments[deptIndex],
-          joinDate: new Date(
-            Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000,
-          ).toLocaleDateString(),
-          status: statuses[statusIndex],
-        }
-      },
-    )
-  }
-  finally {
-    paginationLoading.value = false
-  }
-}
-
-// 初始加载
-loadPaginationData(1, 10)
-
-const paginationColumns: ElTableColumnSchema<PaginationDataItem>[] = [
-  {
-    prop: 'id',
-    label: 'ID',
     width: 80,
     align: 'center',
   },
   {
-    prop: 'username',
-    label: '用户名',
-    width: 120,
-  },
-  {
-    prop: 'email',
-    label: '邮箱',
-    minWidth: 180,
-  },
-  {
-    prop: 'role',
-    label: '角色',
-    width: 100,
-    align: 'center',
-    slots: {
-      default: ({ row }) => row.role,
-    },
-  },
-  {
-    prop: 'department',
-    label: '部门',
-    width: 120,
-    align: 'center',
-  },
-  {
-    prop: 'joinDate',
-    label: '加入日期',
-    width: 120,
-    align: 'center',
-  },
-  {
     prop: 'status',
     label: '状态',
     width: 100,
     align: 'center',
+  },
+]
+
+// 2. 列分组（children）+ 自定义插槽
+const groupColumns: ElTableColumnSchema<UserRow>[] = [
+  {
+    type: 'index',
+    label: '#',
+    width: 60,
+    align: 'center',
+  },
+  {
+    label: '用户信息',
+    children: [
+      {
+        prop: 'name',
+        label: '姓名',
+        minWidth: 120,
+      },
+      {
+        prop: 'email',
+        label: '邮箱',
+        minWidth: 200,
+      },
+    ],
+  },
+  {
+    label: '其它信息',
+    children: [
+      {
+        prop: 'age',
+        label: '年龄',
+        width: 80,
+        align: 'center',
+      },
+      {
+        prop: 'status',
+        label: '状态',
+        width: 120,
+        align: 'center',
+        slots: {
+          default: ({ row }) => getStatusTag(row.status),
+        },
+      },
+    ],
+  },
+]
+
+// 3. 自定义 slots + 函数式列定义
+const slotColumns: ElTableColumnSchema<UserRow>[] = [
+  {
+    prop: 'name',
+    label: '姓名（带部门）',
+    minWidth: 200,
     slots: {
-      default: ({ row }) => getStatusText(row.status),
+      default: ({ row }) => `${row.name}（${row.department}）`,
+    },
+  },
+  {
+    prop: 'createdAt',
+    label: '创建时间',
+    minWidth: 160,
+  },
+  {
+    prop: 'status',
+    label: '状态标签',
+    width: 140,
+    align: 'center',
+    slots: {
+      default: ({ row }) => getStatusTag(row.status),
     },
   },
 ]
 
-// 获取状态文本
-function getStatusText(status: string) {
-  const map: Record<string, string> = {
-    active: '活跃',
-    inactive: '停用',
-    pending: '待审核',
+const functionalColumns: ElTableColumnSchema<UserRow>[] = [
+  () =>
+    h(ElTableColumn, {
+      type: 'index',
+      label: '序号',
+      width: 60,
+      align: 'center',
+    }),
+  () =>
+    h(ElTableColumn, {
+      prop: 'name',
+      label: '姓名',
+      minWidth: 120,
+    }),
+  () =>
+    h(
+      ElTableColumn,
+      {
+        label: '操作（函数式列）',
+        width: 200,
+        align: 'center',
+      },
+      {
+        default: () => [
+          h(
+            'span',
+            {
+              style:
+                'color: var(--el-color-primary); cursor: pointer; margin-right: 8px',
+            },
+            '查看',
+          ),
+          h(
+            'span',
+            { style: 'color: var(--el-color-danger); cursor: pointer' },
+            '删除',
+          ),
+        ],
+      },
+    ),
+]
+
+function getStatusTag(status: UserRow['status']) {
+  const map: Record<
+    UserRow['status'],
+    { text: string, type: 'success' | 'info' | 'warning' }
+  > = {
+    active: { text: '在职', type: 'success' },
+    inactive: { text: '离职', type: 'info' },
+    pending: { text: '待入职', type: 'warning' },
   }
-  return map[status] || status
+
+  const { text, type } = map[status]
+
+  return h(ElTag, { type, size: 'small' }, () => text)
 }
 </script>
 
 <template>
   <SectionLayout height="100%">
-    <!-- 示例区域 -->
     <SectionMain card>
-      <ElSpace
-        direction="vertical"
-        style="width: 100%"
-        :size="24"
-        fill
-      >
-        <ElTable
-          :data="basicData"
-          border
-          stripe
+      <div style="padding: 16px">
+        <ElSpace
+          direction="vertical"
+          :size="24"
+          fill
           style="width: 100%"
         >
-          <ElTableSchemaColumns :columns="basicColumns" />
-        </ElTable>
+          <!-- 1. 基础用法 -->
+          <div>
+            <ElText
+              tag="b"
+              size="large"
+            >
+              1. 基础用法：用对象数组描述列
+            </ElText>
+            <ElDivider style="margin: 12px 0" />
+            <div style="padding: 16px; background: #f5f7fa; border-radius: 4px">
+              <ElTable
+                :data="users"
+                border
+                stripe
+                style="width: 100%"
+              >
+                <ElTableSchemaColumns :columns="basicColumns" />
+              </ElTable>
+            </div>
+          </div>
 
-        <ElTable
-          v-loading="paginationLoading"
-          :data="paginationData"
-          border
-          stripe
-          style="width: 100%"
-        >
-          <ElTableSchemaColumns :columns="paginationColumns" />
-        </ElTable>
-        <div style="display: flex; justify-content: flex-end">
-          <ElUsePagination
-            :pagination="pagination"
-            background
-            layout="prev, pager, next, jumper, sizes, total"
-            :page-sizes="[10, 20, 30, 50]"
-          />
-        </div>
-      </ElSpace>
+          <!-- 2. 分组列（children）+ 插槽 -->
+          <div>
+            <ElText
+              tag="b"
+              size="large"
+            >
+              2. 列分组（children）+ 自定义插槽
+            </ElText>
+            <ElDivider style="margin: 12px 0" />
+            <div style="padding: 16px; background: #f5f7fa; border-radius: 4px">
+              <ElTable
+                :data="users"
+                border
+                stripe
+                style="width: 100%"
+              >
+                <ElTableSchemaColumns :columns="groupColumns" />
+              </ElTable>
+            </div>
+          </div>
+
+          <!-- 3. 自定义 slots + 函数式列 -->
+          <div>
+            <ElText
+              tag="b"
+              size="large"
+            >
+              3. 自定义 slots + 函数式列
+            </ElText>
+            <ElDivider style="margin: 12px 0" />
+            <div style="padding: 16px; background: #f5f7fa; border-radius: 4px">
+              <ElSpace
+                direction="vertical"
+                :size="16"
+                fill
+                style="width: 100%"
+              >
+                <ElTable
+                  :data="users"
+                  border
+                  stripe
+                  style="width: 100%"
+                >
+                  <ElTableSchemaColumns :columns="slotColumns" />
+                </ElTable>
+
+                <ElTable
+                  :data="users"
+                  border
+                  stripe
+                  style="width: 100%"
+                >
+                  <ElTableSchemaColumns :columns="functionalColumns" />
+                </ElTable>
+              </ElSpace>
+            </div>
+          </div>
+        </ElSpace>
+      </div>
     </SectionMain>
   </SectionLayout>
 </template>
