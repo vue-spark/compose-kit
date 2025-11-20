@@ -1,5 +1,4 @@
 import type { PaginationPropsPublic } from 'element-plus'
-import type { Writable } from 'type-fest'
 import type { FunctionalComponent } from 'vue'
 import type {
   ElUsePaginationEmits,
@@ -23,10 +22,7 @@ export const ElUsePagination: FunctionalComponent<
   const { currentPage, currentPageSize, pageCount, total } = pagination
 
   const finalProps: PaginationPropsPublic = mergeProps(
-    objectPick(
-      config?.defaultProps || {},
-      defaultPropKeys as Writable<typeof defaultPropKeys>,
-    ),
+    objectPick(config?.defaultProps || {}, defaultPropKeys as any),
 
     // 需要与 attrs 内的事件名保持一致
     {
