@@ -1,5 +1,6 @@
-import type { PaginationPropsPublic } from 'element-plus'
+import type { PaginationProps } from 'element-plus'
 import type { Simplify } from 'type-fest'
+import type { ExtractPublicPropTypes } from 'vue'
 import type { defaultPropKeys as UsePaginationDefaultPropKeys } from './components/use-pagination/default-prop-keys'
 
 declare module '../global-config' {
@@ -11,7 +12,7 @@ declare module '../global-config' {
          */
         defaultProps?: Simplify<
           Pick<
-            PaginationPropsPublic,
+            ExtractPublicPropTypes<PaginationProps>,
             (typeof UsePaginationDefaultPropKeys)[number]
           >
         >

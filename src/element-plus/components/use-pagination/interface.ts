@@ -1,17 +1,16 @@
 import type {
   ElPagination,
   PaginationEmits,
-  PaginationPropsPublic,
+  PaginationProps,
 } from 'element-plus'
+import type { ExtractPublicPropTypes } from 'vue'
 import type { ComponentSlots } from 'vue-component-type-helpers'
 import type { UsePaginationReturn } from '../../../shared/hooks/use-pagination'
 
 export interface ElUsePaginationProps
-  extends Partial<
-    Omit<
-      PaginationPropsPublic,
-      'currentPage' | 'pageSize' | 'pageCount' | 'total'
-    >
+  extends Omit<
+    ExtractPublicPropTypes<PaginationProps>,
+    'currentPage' | 'pageSize' | 'pageCount' | 'total'
   > {
   /**
    * 通过 `usePagination` 创建的控制器

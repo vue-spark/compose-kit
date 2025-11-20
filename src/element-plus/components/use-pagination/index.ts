@@ -1,4 +1,3 @@
-import type { PaginationPropsPublic } from 'element-plus'
 import type { FunctionalComponent } from 'vue'
 import type {
   ElUsePaginationEmits,
@@ -21,7 +20,7 @@ export const ElUsePagination: FunctionalComponent<
   const config = useGlobalConfig('ElementPlus').value?.ElUsePagination
   const { currentPage, currentPageSize, pageCount, total } = pagination
 
-  const finalProps: PaginationPropsPublic = mergeProps(
+  const finalProps = mergeProps(
     objectPick(config?.defaultProps || {}, defaultPropKeys as any),
 
     // 需要与 attrs 内的事件名保持一致
