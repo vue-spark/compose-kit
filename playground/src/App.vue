@@ -1,7 +1,7 @@
-<script setup lang="tsx">
+<script setup lang="ts">
 import type { FunctionalComponent } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
-import { ElSubMenu } from 'element-plus'
+import { ElMenuItem, ElSubMenu } from 'element-plus'
 import { camelize } from 'vue'
 import { routes } from 'vue-router/auto-routes'
 
@@ -16,25 +16,23 @@ const ReMenuItem: FunctionalComponent<{
 }> = ({ route: propRoute, parentPath }) => {
   const fullPath = `${parentPath}${parentPath ? '/' : ''}${propRoute.path}`
   if (propRoute.children?.length) {
-    return (
-      <ElSubMenu index={fullPath}>
-        {{
-          title: () => getMenuTitle(propRoute.path),
-          default: () =>
-            propRoute.children!.map((route) => (
-              <ReMenuItem
-                key={`${fullPath}/${route.path}`}
-                route={route}
-                parentPath={fullPath}
-              />
-            )),
-        }}
-      </ElSubMenu>
+    return h(
+      ElSubMenu,
+      { index: fullPath },
+      {
+        title: () => getMenuTitle(propRoute.path),
+        default: () =>
+          propRoute.children!.map((route) =>
+            h(ReMenuItem, {
+              key: `${fullPath}/${route.path}`,
+              route,
+              parentPath: fullPath,
+            }),
+          ),
+      },
     )
   }
-  return (
-    <ElMenuItem index={fullPath}>{getMenuTitle(propRoute.path)}</ElMenuItem>
-  )
+  return h(ElMenuItem, { index: fullPath }, () => getMenuTitle(propRoute.path))
 }
 
 ReMenuItem.props = {

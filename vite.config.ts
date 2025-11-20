@@ -1,5 +1,4 @@
 import vue from '@vitejs/plugin-vue'
-import vueJsx from '@vitejs/plugin-vue-jsx'
 import autoImport from 'unplugin-auto-import/rolldown'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import vueComponents from 'unplugin-vue-components/rolldown'
@@ -10,7 +9,6 @@ export default defineConfig({
   root: './playground',
   plugins: [
     vue(),
-    vueJsx(),
     vueRouter({
       routesFolder: 'playground/src/pages',
       dts: 'playground/types/typed-router.d.ts',

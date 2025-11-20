@@ -31,7 +31,7 @@ your-project/
 pnpm add vue @vueuse/core
 
 # 开发依赖，以 Vite 为例
-pnpm add vue-component-type-helpers type-fest typescript vite @vitejs/plugin-vue @vitejs/plugin-vue-jsx -D
+pnpm add vue-component-type-helpers type-fest typescript vite @vitejs/plugin-vue -D
 
 ```
 

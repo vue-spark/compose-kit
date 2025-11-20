@@ -1,40 +1,24 @@
-import type {
-  PaginationEmits as ElPaginationEmits,
-  PaginationPropsPublic,
-} from 'element-plus'
+import type { PaginationPropsPublic } from 'element-plus'
 import type { Writable } from 'type-fest'
 import type { FunctionalComponent } from 'vue'
-import type { ComponentSlots } from 'vue-component-type-helpers'
-import type { UsePaginationReturn } from '../../../shared/hooks/use-pagination'
+import type {
+  ElUsePaginationEmits,
+  ElUsePaginationProps,
+  ElUsePaginationSlots,
+} from './interface'
 import { ElPagination } from 'element-plus'
-import { mergeProps } from 'vue'
+import { h, mergeProps } from 'vue'
 import { objectPick } from '../../../_internal/utils'
 import { useGlobalConfig } from '../../../global-config'
 import { defaultPropKeys } from './default-prop-keys'
 
-export interface ElUsePaginationProps
-  extends Partial<
-    Omit<
-      PaginationPropsPublic,
-      'currentPage' | 'pageSize' | 'pageCount' | 'total'
-    >
-  > {
-  /**
-   * 通过 `usePagination` 创建的控制器
-   */
-  pagination: UsePaginationReturn
-}
-
-export interface ElUsePaginationEmits extends ElPaginationEmits {}
-
-export interface ElUsePaginationSlots
-  extends ComponentSlots<typeof ElPagination> {}
+export type * from './interface'
 
 export const ElUsePagination: FunctionalComponent<
   ElUsePaginationProps,
   ElUsePaginationEmits,
   ElUsePaginationSlots
-> = ({ pagination, ...props }, { attrs, slots }) => {
+> = ({ pagination }, { attrs, slots }) => {
   const config = useGlobalConfig('ElementPlus').value?.ElUsePagination
   const { currentPage, currentPageSize, pageCount, total } = pagination
 
@@ -55,7 +39,6 @@ export const ElUsePagination: FunctionalComponent<
     },
 
     attrs,
-    props,
 
     {
       currentPage: currentPage.value,
@@ -65,7 +48,7 @@ export const ElUsePagination: FunctionalComponent<
     },
   )
 
-  return <ElPagination {...finalProps}>{slots}</ElPagination>
+  return h(ElPagination, finalProps, slots)
 }
 
 ElUsePagination.props = {
