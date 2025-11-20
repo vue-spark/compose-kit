@@ -32,7 +32,6 @@ pnpm add vue @vueuse/core
 
 # 开发依赖，以 Vite 为例
 pnpm add vue-component-type-helpers type-fest typescript vite @vitejs/plugin-vue -D
-
 ```
 
 ### 3. 配置构建工具 alias（以 Vite 为例）
@@ -74,8 +73,12 @@ export default defineConfig({
     }
   },
   "include": [
-    "src",
-    "compose-kit" // 确保 TS 能扫描到本库源码
+    "src/**/*",
+    "src/**/*.vue",
+
+    // 确保 TS 能扫描到本库源码
+    "compose-kit/src/**/*",
+    "compose-kit/src/**/*.vue"
   ]
 }
 ```
@@ -107,7 +110,7 @@ createApp(App).use((app) => {
 
 ### 三方组件库集成（可选）
 
-本库不会自动安装或引入任何第三方组件库及其样式（例如 Element Plus）。如果你需要结合 UI 组件库使用本库提供的能力，可以参考下面以 Element Plus 为例的可选说明。
+本库不会自动安装或引入任何第三方组件库及其样式（例如 Element Plus）。如果你需要结合 UI 组件库使用本库提供的能力，可以参考下面以 Element Plus 为例的可选说明。如果在项目中完全不需要这类第三方集成，可以直接删除 `compose-kit/src/element-plus` 等对应目录，不会影响本库核心功能。
 
 <details>
 <summary>以 Element Plus 为例的集成（点击展开）</summary>
@@ -122,7 +125,7 @@ createApp(App).use((app) => {
   ```ts
   import 'element-plus/theme-chalk/index.css'
   ```
-- 通过 `provideGlobalConfig` 配置与 Element Plus 相关的全局行为（需要先引入下方的类型扩展）：
+- 通过 `provideGlobalConfig` 配置与 Element Plus 相关的全局行为：
 
 ```ts
 provideGlobalConfig({
@@ -132,26 +135,10 @@ provideGlobalConfig({
 })
 ```
 
-#### 类型扩展（推荐其一即可）
-
-1. **在类型声明文件中使用 `/// <reference />` 指令**（推荐写在 `env.d.ts` 或单独的 `global.d.ts` 顶部）：
-
-```ts
-/// <reference types="@vue-spark/compose-kit/element-plus/global-config" />
-```
-
-2. **在 `tsconfig.json` 中通过 `compilerOptions.types` 统一引入**（与现有类型配置合并）：
-
-```jsonc
-{
-  "compilerOptions": {
-    "types": [
-      "vite/client",
-      "@vue-spark/compose-kit/element-plus/global-config"
-    ]
-  }
-}
-```
+- 在需要使用 Element Plus 组件的页面中引入：
+  ```ts
+  import { ElTableSchemaColumns } from '@vue-spark/compose-kit/element-plus'
+  ```
 
 </details>
 
