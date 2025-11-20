@@ -24,13 +24,13 @@
   ],
   "sideEffects": false,
   "exports": {
-    ".": "./src/shared/index.ts",
-    "./*": "./src/*/index.ts",
+    ".": "./src/index.ts",
+    "./*": "./src/*",
     "./package.json": "./package.json"
   },
-  "main": "./src/shared/index.ts",
-  "module": "./src/shared/index.ts",
-  "types": "./src/shared/index.ts",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "types": "./src/index.ts",
   "files": [
     "src"
   ],

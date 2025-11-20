@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { SectionItemProps } from '../interface'
 import { createBEM } from '../../../../_internal/bem'
-import { useSetupConfig } from '../../../setup-config'
+import { useGlobalConfig } from '../../../../global-config'
 
 defineOptions({
   name: 'SectionItem',
@@ -9,7 +9,7 @@ defineOptions({
 
 defineProps<SectionItemProps>()
 
-const config = useSetupConfig().SectionLayout
+const config = useGlobalConfig('SectionLayout')
 const bem = createBEM('section-item')
 </script>
 

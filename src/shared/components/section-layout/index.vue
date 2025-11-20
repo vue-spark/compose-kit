@@ -2,7 +2,7 @@
 import type { SectionLayoutProps } from './interface'
 import { computed } from 'vue'
 import { createBEM } from '../../../_internal/bem'
-import { useSetupConfig } from '../../setup-config'
+import { useGlobalConfig } from '../../../global-config'
 
 defineOptions({
   name: 'SectionLayout',
@@ -10,7 +10,7 @@ defineOptions({
 
 const props = defineProps<SectionLayoutProps>()
 
-const config = useSetupConfig().SectionLayout
+const config = useGlobalConfig('SectionLayout')
 const bem = createBEM('section-layout')
 const direction = computed(() => props.direction || 'vertical')
 </script>

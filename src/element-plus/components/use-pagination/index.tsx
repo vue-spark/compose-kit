@@ -2,30 +2,15 @@ import type {
   PaginationEmits as ElPaginationEmits,
   PaginationPropsPublic,
 } from 'element-plus'
-import type { Simplify, Writable } from 'type-fest'
+import type { Writable } from 'type-fest'
 import type { FunctionalComponent } from 'vue'
 import type { ComponentSlots } from 'vue-component-type-helpers'
-import type { UsePaginationReturn } from '../../../shared/uses/use-pagination'
+import type { UsePaginationReturn } from '../../../shared/hooks/use-pagination'
 import { ElPagination } from 'element-plus'
 import { mergeProps } from 'vue'
 import { objectPick } from '../../../_internal/utils'
-import { useSetupConfig } from '../../../shared/setup-config'
+import { useGlobalConfig } from '../../../global-config'
 import { defaultPropKeys } from './default-prop-keys'
-
-declare module '../../../shared/setup-config' {
-  interface SetupConfig {
-    ElementPlus?: {
-      ElUsePagination?: {
-        /**
-         * 默认属性
-         */
-        defaultProps?: Simplify<
-          Pick<PaginationPropsPublic, (typeof defaultPropKeys)[number]>
-        >
-      }
-    }
-  }
-}
 
 export interface ElUsePaginationProps
   extends Partial<
@@ -50,7 +35,7 @@ export const ElUsePagination: FunctionalComponent<
   ElUsePaginationEmits,
   ElUsePaginationSlots
 > = ({ pagination, ...props }, { attrs, slots }) => {
-  const config = useSetupConfig().ElementPlus?.ElUsePagination
+  const config = useGlobalConfig('ElementPlus').value?.ElUsePagination
   const { currentPage, currentPageSize, pageCount, total } = pagination
 
   const finalProps: PaginationPropsPublic = mergeProps(
