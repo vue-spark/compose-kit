@@ -1,7 +1,7 @@
 {
   "name": "@vue-spark/compose-kit",
   "type": "module",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "packageManager": "pnpm@10.11.0",
   "description": "面向复杂业务的组合式 Vue 开发工具包：可复用的 Composables、SFC 组件与通用工具，显著提升开发效率。",
   "author": "leihaohao <https://github.com/l246804>",
