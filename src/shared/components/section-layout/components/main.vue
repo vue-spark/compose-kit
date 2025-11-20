@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { SectionMainProps } from '../interface'
 import { createBEM } from '../../../../_internal/bem'
-import { useSetupConfig } from '../../../../setup-config'
+import { useSetupConfig } from '../../../setup-config'
 
 defineOptions({
   name: 'SectionMain',

@@ -34,8 +34,13 @@ const entries: PackageEntry[] = [
   {
     from: 'package.json',
     handle: ({ archive, innerPath }) => {
-      const { devDependencies: _devDependencies, ...pkgWithoutDevDeps } = pkg
-      const pkgJsonContent = `${JSON.stringify(pkgWithoutDevDeps, null, 2)}\n`
+      const {
+        devDependencies: _devDependencies,
+        scripts: _scripts,
+        'simple-git-hooks': _simpleGitHooks,
+        ...restOptions
+      } = pkg
+      const pkgJsonContent = `${JSON.stringify(restOptions, null, 2)}\n`
       archive.append(pkgJsonContent, { name: innerPath })
     },
   },
