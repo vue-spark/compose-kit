@@ -19,3 +19,5 @@ declare module '../global-config' {
     }
   }
 }
+
+export {}
