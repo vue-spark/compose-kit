@@ -10,14 +10,7 @@ import {
 } from 'vue'
 import { warn } from './utils'
 
-export interface GlobalConfig {
-  SectionLayout?: {
-    /**
-     * 内置卡片样式类名，方便统一设置卡片样式
-     */
-    cardClass?: any
-  }
-}
+export interface GlobalConfig {}
 
 export const globalConfigContextKey: InjectionKey<Ref<GlobalConfig>> = Symbol(
   'Compose Kit Global Config',
