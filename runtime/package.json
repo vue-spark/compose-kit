@@ -40,6 +40,7 @@
   "scripts": {
     "dev": "tsdown --watch",
     "build": "tsdown",
+    "prepublish": "pnpm run build",
     "release": "bumpp -t=runtime@v && pnpm publish"
   },
   "peerDependencies": {
