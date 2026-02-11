@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import type { SectionLayoutProps } from './interface'
+import { createBEM, useGlobalConfig } from '@vue-spark/compose-kit-runtime'
 import { computed } from 'vue'
-import { createBEM } from '../../../_internal/bem'
-import { useGlobalConfig } from '../../../global-config'
 
 defineOptions({
   name: 'SectionLayout',

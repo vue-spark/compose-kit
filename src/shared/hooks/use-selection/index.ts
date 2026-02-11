@@ -1,6 +1,6 @@
 import type { ComputedRef, MaybeRefOrGetter } from 'vue'
+import { isFunction } from '@vue-spark/compose-kit-runtime/utils'
 import { computed, shallowReactive, toValue } from 'vue'
-import { isFunction } from '../../../_internal/utils'
 
 export interface UseSelectionOptions<T = any, K = any> {
   /**

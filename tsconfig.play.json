@@ -10,7 +10,8 @@
       "vite/client",
       "element-plus/global",
       "unplugin-vue-router/client"
-    ]
+    ],
+    "skipLibCheck": true
   },
   "include": ["playground/**/*", "playground/**/*.vue"]
 }

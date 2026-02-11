@@ -1,0 +1,48 @@
+{
+  "name": "@vue-spark/compose-kit-runtime",
+  "type": "module",
+  "version": "0.0.0",
+  "description": "@vue-spark/compose-kit 的运行时依赖。",
+  "author": "leihaohao <https://github.com/l246804>",
+  "license": "MIT",
+  "homepage": "https://github.com/vue-spark/compose-kit/blob/main/runtime/README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vue-spark/compose-kit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vue-spark/compose-kit/issues"
+  },
+  "keywords": [
+    "web",
+    "function",
+    "use",
+    "hook",
+    "composable",
+    "ui"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": "./dist/*.js",
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsdown --watch",
+    "build": "tsdown",
+    "release": "bumpp"
+  },
+  "peerDependencies": {
+    "type-fest": "^5.1.0",
+    "vue": "^3.5.22"
+  },
+  "devDependencies": {
+    "tsdown": "^0.20.3"
+  }
+}

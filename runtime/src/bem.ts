@@ -19,7 +19,15 @@ export interface BEM {
   is: (state: string) => string
 }
 
-const baseNamespace = 'v'
+let baseNamespace = 'v'
+
+/**
+ * 配置 BEM 命名空间
+ * @param namespace 命名空间
+ */
+export function configureBEM(namespace: string): void {
+  baseNamespace = namespace
+}
 
 /**
  * 创建 BEM 工具函数集合

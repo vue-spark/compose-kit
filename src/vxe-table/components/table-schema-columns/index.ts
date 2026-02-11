@@ -1,14 +1,14 @@
+import type { TableDefaultRow } from '@vue-spark/compose-kit-runtime/table'
 import type { VNodeChild } from 'vue'
-import type { DefaultRow } from '../../../_internal/table'
 import type { VxeTableSchemaColumnsProps } from './interface'
+import { isFunction } from '@vue-spark/compose-kit-runtime/utils'
 import { defineComponent, h, isVNode } from 'vue'
 import { VxeColgroup, VxeColumn } from 'vxe-table'
-import { isFunction } from '../../../_internal/utils'
 
 export type * from './interface'
 
 export const VxeTableSchemaColumns = /* @__PURE__ */ defineComponent(
-  <T extends DefaultRow = any>(props: VxeTableSchemaColumnsProps<T>) => {
+  <T extends TableDefaultRow = any>(props: VxeTableSchemaColumnsProps<T>) => {
     return () => {
       const vNodes: VNodeChild = []
 

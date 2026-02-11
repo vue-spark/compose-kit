@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { ToolbarProps, ToolbarSlots } from './interface'
-import { createBEM } from '../../../_internal/bem'
+import { createBEM } from '@vue-spark/compose-kit-runtime'
 
 defineOptions({
   name: 'Toolbar',

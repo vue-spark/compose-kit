@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { SectionMainProps } from '../interface'
-import { createBEM } from '../../../../_internal/bem'
-import { useGlobalConfig } from '../../../../global-config'
+import { createBEM, useGlobalConfig } from '@vue-spark/compose-kit-runtime'
 
 defineOptions({
   name: 'SectionMain',

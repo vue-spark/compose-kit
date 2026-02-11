@@ -24,19 +24,48 @@ your-project/
 
 ### 2. 安装必要依赖
 
-在业务项目中安装运行时依赖和开发依赖（如已安装可跳过），具体版本号可参考本库的 `package.json`：
+本库的依赖分为**核心依赖**（必须安装）和**可选依赖**（按需安装）。具体版本号可参考本库的 `package.json`。
+
+#### 核心依赖
+
+以下是使用本库必须安装的依赖：
 
 ```bash
-# 运行时依赖
-pnpm add vue @vueuse/core
+# 运行时核心依赖
+pnpm add vue @vue-spark/compose-kit-runtime type-fest vue-component-type-helpers
+```
 
-# 开发依赖，以 Vite 为例
-pnpm add vue-component-type-helpers type-fest typescript vite @vitejs/plugin-vue -D
+> `@vue-spark/compose-kit-runtime` 是本库的运行时基础包，提供 BEM 工具、全局配置、表格 Schema 类型等底层能力，所有组件均依赖它。它是一个标准 npm 包，无需额外配置 alias 或 paths。
+
+#### 可选依赖：UI 组件库
+
+如果你使用了本库中与特定 UI 组件库相关的功能，需要自行安装对应的 UI 库：
+
+```bash
+# 使用 src/element-plus 下的组件时安装
+pnpm add element-plus
+
+# 使用 src/vxe-table 下的组件时安装
+pnpm add vxe-table
+```
+
+> 如果完全不需要某个 UI 库的集成，可以直接删除 `compose-kit/src/element-plus` 或 `compose-kit/src/vxe-table` 等对应目录，不会影响其他功能。
+
+#### 可选依赖：其他
+
+根据你使用的具体组件，可能还需要安装以下依赖（按需选择）：
+
+```bash
+# 如果组件中使用了 @vueuse/core 的 composables
+pnpm add @vueuse/core
+
+# 如果组件中使用了 iconify 图标
+pnpm add @iconify/vue
 ```
 
 ### 3. 配置构建工具 alias（以 Vite 为例）
 
-在构建工具中，将逻辑包名 `@vue-spark/compose-kit` 指向本地源码目录 `compose-kit/src`。以 Vite 为例：
+在构建工具中，将 `@vue-spark/compose-kit` 指向本地源码目录 `compose-kit/src`，使子路径导入（如 `@vue-spark/compose-kit/shared`）能正确解析。以 Vite 为例：
 
 ```ts
 import { resolve } from 'node:path'
@@ -66,9 +95,7 @@ export default defineConfig({
 {
   "compilerOptions": {
     "paths": {
-      // 与构建工具 alias 保持一致
-      "@vue-spark/compose-kit": ["./compose-kit/src"],
-      // 支持子路径导入（例如 @vue-spark/compose-kit/element-plus）
+      // 支持子路径导入（例如 @vue-spark/compose-kit/shared）
       "@vue-spark/compose-kit/*": ["./compose-kit/src/*"]
     }
   },
@@ -85,10 +112,21 @@ export default defineConfig({
 
 ### 5. 在代码中使用
 
-完成以上步骤后，可以像使用普通包一样按包名引入：
+完成以上步骤后，通过子路径按模块导入：
 
 ```ts
-import { useXxx } from '@vue-spark/compose-kit'
+// Element Plus 相关组件（需安装 element-plus）
+import { ElTableSchemaColumns } from '@vue-spark/compose-kit/element-plus'
+
+// 通用组件和 hooks
+import {
+  SectionLayout,
+  Toolbar,
+  useSelection,
+} from '@vue-spark/compose-kit/shared'
+
+// vxe-table 相关组件（需安装 vxe-table）
+import { VxeTableSchemaColumns } from '@vue-spark/compose-kit/vxe-table'
 ```
 
 ### 6. 迭代升级建议
@@ -96,6 +134,8 @@ import { useXxx } from '@vue-spark/compose-kit'
 在功能定制时，优先通过本库提供的 `provideGlobalConfig` 进行配置，而不要直接修改源码中的实现逻辑。这样在需要升级时，一般只需从 Releases 下载新版本并替换本地的 `compose-kit` 源码目录，即可在保留既有配置代码的前提下完成大部分升级工作。
 
 ```ts
+import { provideGlobalConfig } from '@vue-spark/compose-kit-runtime'
+
 createApp(App).use((app) => {
   provideGlobalConfig(
     {
@@ -128,6 +168,8 @@ createApp(App).use((app) => {
 - 通过 `provideGlobalConfig` 配置与 Element Plus 相关的全局行为：
 
 ```ts
+import { provideGlobalConfig } from '@vue-spark/compose-kit-runtime'
+
 provideGlobalConfig({
   ElementPlus: {
     // ...你的配置

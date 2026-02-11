@@ -20,25 +20,24 @@
     "use",
     "hook",
     "composable",
-    "element-plus"
+    "ui"
   ],
   "sideEffects": false,
   "exports": {
-    ".": "./src/index.ts",
-    "./*": "./src/*",
+    "./*": "./src/*/index.ts",
     "./package.json": "./package.json"
   },
-  "main": "./src/index.ts",
-  "module": "./src/index.ts",
-  "types": "./src/index.ts",
   "files": [
     "src"
   ],
   "scripts": {
+    "dev": "vite",
     "build": "tsx .scripts/build.ts",
-    "play": "vite",
+    "runtime:dev": "pnpm -C runtime dev",
+    "runtime:build": "pnpm -C runtime build",
+    "runtime:release": "pnpm -C runtime release",
     "test": "vitest",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "vue-tsc --build --noEmit",
     "format": "prettier . --write --cache --cache-location ./node_modules/.cache/.prettier-cache",
     "lint": "eslint . --cache --cache-location ./node_modules/.cache/.eslint-cache",
     "lint:fix": "pnpm run lint --fix",
@@ -59,13 +58,14 @@
     }
   },
   "dependencies": {
+    "@vue-spark/compose-kit-runtime": "workspace:*",
     "type-fest": "^5.1.0",
     "vue-component-type-helpers": "^3.1.1"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^6.0.0",
     "@sxzz/prettier-config": "^2.2.3",
-    "@tsconfig/node22": "^22.0.2",
+    "@tsconfig/node22": "^22.0.5",
     "@types/archiver": "^7.0.0",
     "@types/node": "^22.16.0",
     "@vitejs/plugin-vue": "^6.0.1",
@@ -91,7 +91,7 @@
     "vitest": "^4.0.10",
     "vue": "^3.5.22",
     "vue-router": "^4.6.3",
-    "vue-tsc": "^3.1.1",
+    "vue-tsc": "^3.2.4",
     "vxe-table": "^4.17.4"
   },
   "simple-git-hooks": {

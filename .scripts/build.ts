@@ -3,6 +3,7 @@ import path from 'node:path'
 import process from 'node:process'
 import archiver from 'archiver'
 import pkg from '../package.json'
+import runtimePkg from '../runtime/package.json'
 
 interface PackageEntryContext {
   absPath: string
@@ -38,8 +39,23 @@ const entries: PackageEntry[] = [
         devDependencies: _devDependencies,
         scripts: _scripts,
         'simple-git-hooks': _simpleGitHooks,
+        packageManager: _packageManager,
         ...restOptions
       } = pkg
+
+      // 将 workspace:* 协议替换为实际版本号
+      if (restOptions.dependencies) {
+        for (const [name, version] of Object.entries(
+          restOptions.dependencies,
+        )) {
+          if (typeof version === 'string' && version.startsWith('workspace:')) {
+            if (name === runtimePkg.name) {
+              restOptions.dependencies[name] = `^${runtimePkg.version}`
+            }
+          }
+        }
+      }
+
       const pkgJsonContent = `${JSON.stringify(restOptions, null, 2)}\n`
       archive.append(pkgJsonContent, { name: innerPath })
     },

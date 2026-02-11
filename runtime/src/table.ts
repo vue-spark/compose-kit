@@ -1,6 +1,6 @@
 import type { VNodeArrayChildren, VNodeChild } from 'vue'
 
-export interface DefaultRow {
+export interface TableDefaultRow {
   [K: PropertyKey]: any
 }
 
@@ -10,9 +10,9 @@ export type TableColumnSchemaSlots<RawSlots> = {
   [K: string]: (data: any) => VNodeChild
 }
 
-export type FalsyTableColumnSchema = false | null | undefined
+export type TableFalsyColumnSchema = false | null | undefined
 
-export type FunctionalTableColumnSchema = () => Exclude<
+export type TableFunctionalColumnSchema = () => Exclude<
   VNodeChild,
   VNodeArrayChildren
 >
