@@ -3,7 +3,7 @@ import type { ElTableColumnSchema } from '@/element-plus'
 import { ElTableColumn, ElTag } from 'element-plus'
 import { h, ref } from 'vue'
 import { ElTableSchemaColumns } from '@/element-plus'
-import { SectionLayout, SectionMain } from '@/index'
+import { SectionLayout, SectionMain } from '@/shared'
 
 interface UserRow {
   id: number

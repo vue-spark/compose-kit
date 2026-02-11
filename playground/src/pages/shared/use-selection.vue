@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { SectionLayout, SectionMain, useSelection } from '@/index'
+import { SectionLayout, SectionMain, useSelection } from '@/shared'
 
 interface User {
   id: number

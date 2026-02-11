@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
-import { SectionLayout, SectionMain, Toolbar } from '@/index'
+import { SectionLayout, SectionMain, Toolbar } from '@/shared'
 
 // 搜索表单
 const searchForm = reactive({

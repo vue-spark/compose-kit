@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SectionLayout, SectionMain } from '@/index'
+import { SectionLayout, SectionMain } from '@/shared'
 </script>
 
 <template>
