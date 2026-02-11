@@ -8,6 +8,7 @@ import {
   ref,
   toValue,
 } from 'vue'
+import { warn } from './utils'
 
 export interface GlobalConfig {
   SectionLayout?: {
@@ -55,10 +56,7 @@ export function provideGlobalConfig(
 
   const provideFn = app?.provide ?? (inSetup ? provide : undefined)
   if (!provideFn) {
-    console.warn(
-      '[Compose Kit]',
-      'provideGlobalConfig() can only be used inside setup().',
-    )
+    warn('provideGlobalConfig() can only be used inside setup().')
     return
   }
 

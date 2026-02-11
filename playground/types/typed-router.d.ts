@@ -44,6 +44,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/shared/use-editable-list': RouteRecordInfo<
+      '/shared/use-editable-list',
+      '/shared/use-editable-list',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/shared/use-selection': RouteRecordInfo<
       '/shared/use-selection',
       '/shared/use-selection',
@@ -79,6 +86,12 @@ declare module 'vue-router/auto-routes' {
     'playground/src/pages/shared/toolbar.vue': {
       routes:
         | '/shared/toolbar'
+      views:
+        | never
+    }
+    'playground/src/pages/shared/use-editable-list.vue': {
+      routes:
+        | '/shared/use-editable-list'
       views:
         | never
     }

@@ -16,3 +16,17 @@ export function objectPick<O extends object, T extends keyof O>(
     return o
   }, {} as any)
 }
+
+export function toArray<T>(val: T | T[]): T[] {
+  return Array.isArray(val) ? val : [val]
+}
+
+export function clearObject(obj: object): void {
+  Object.keys(obj).forEach((k) => {
+    delete obj[k as keyof typeof obj]
+  })
+}
+
+export function warn(...args: any[]): void {
+  console.warn('[Compose Kit]', ...args)
+}
