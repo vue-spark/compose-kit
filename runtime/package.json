@@ -1,7 +1,7 @@
 {
   "name": "@vue-spark/compose-kit-runtime",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "@vue-spark/compose-kit 的运行时依赖。",
   "author": "leihaohao <https://github.com/l246804>",
   "license": "MIT",
