@@ -36,7 +36,7 @@
   "scripts": {
     "dev": "tsdown --watch",
     "build": "tsdown",
-    "release": "bumpp"
+    "release": "bumpp -t=runtime"
   },
   "peerDependencies": {
     "type-fest": "^5.1.0",
