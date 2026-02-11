@@ -13,6 +13,10 @@
   "bugs": {
     "url": "https://github.com/vue-spark/compose-kit/issues"
   },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "keywords": [
     "web",
     "function",
