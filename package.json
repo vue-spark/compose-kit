@@ -69,7 +69,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^6.0.0",
     "@sxzz/prettier-config": "^2.2.3",
-    "@tsconfig/node22": "^22.0.5",
+    "@tsconfig/node24": "^24.0.0",
     "@types/archiver": "^7.0.0",
     "@types/node": "^22.16.0",
     "@vitejs/plugin-vue": "^6.0.1",
