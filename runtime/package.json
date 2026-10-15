@@ -48,6 +48,6 @@
     "vue": "^3.5.22"
   },
   "devDependencies": {
-    "tsdown": "^0.20.3"
+    "tsdown": "^0.23.0"
   }
 }
