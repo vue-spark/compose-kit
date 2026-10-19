@@ -71,7 +71,7 @@
     "@sxzz/prettier-config": "^2.2.3",
     "@tsconfig/node22": "^22.0.5",
     "@types/archiver": "^7.0.0",
-    "@types/node": "^22.16.0",
+    "@types/node": "^24.0.0",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/tsconfig": "^0.8.1",
     "@vueuse/core": "^14.0.0",
