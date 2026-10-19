@@ -74,7 +74,7 @@
     "@types/node": "^22.16.0",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/tsconfig": "^0.8.1",
-    "@vueuse/core": "^14.0.0",
+    "@vueuse/core": "^15.0.0",
     "archiver": "^7.0.1",
     "bumpp": "^10.2.0",
     "element-plus": "^2.11.5",
